@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+# This launcher setups Tcl/Tk application in snaps.
+# 林博仁(Buo-ren, Lin) © 2019
+
+set \
+    -o errexit \
+    -o errtrace \
+    -o nounset \
+    -o pipefail
+
+init(){
+    if ! test -v X_DEBIAN_MULTIARCH_TRIPLET; then
+        # The backticks is not command substitution, but the <code> Markdown markup
+        # shellcheck disable=SC2016
+        printf -- \
+            'tcltk-launch: Error: This launcher requires the `debian-multiarch-triplet-provider-launch` launcher to be run in the first place.\n' \
+            >&2
+        exit 1
+    fi
+
+    # tclvars manual page - Tcl Built-In Commands
+    # https://www.tcl.tk/man/tcl/TclCmd/tclvars.htm#M7
+    TCL_LIBRARY="${SNAP}"/usr/share/tcltk/tcl8.6
+
+    # package manual page - Tcl Built-In Commands
+    # https://www.tcl.tk/man/tcl/TclCmd/package.htm
+    # DOC: +=: Bash Manual - Basic Shell Features - Shell Parameters
+    # DOC: Tcl Improvement Proposals: TIP 407: The String Representation of Tcl Lists: the Gory Details
+    # https://core.tcl.tk/tips/doc/trunk/tip/407.md
+    TCLLIBPATH="${SNAP}/usr/share/tcltk/tcl8.6"
+    TCLLIBPATH+=" ${SNAP}/usr/lib/${X_DEBIAN_MULTIARCH_TRIPLET}"
+
+    export \
+        TCL_LIBRARY \
+        TCLLIBPATH
+
+    exec "${@}"
+}
+
+init "${@}"
