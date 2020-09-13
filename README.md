@@ -1,6 +1,6 @@
-# The tcltk-launch stage snap
+# The tcltk-launch snap enablement launcher
 
-Refer [The tcltk-launch stage snap - doc - snapcraft.io](https://forum.snapcraft.io/t/the-tcltk-launch-stage-snap/11740) for more info on using this stage snap.
+Refer [The tcltk-launch launcher: Fix Tcl/Tk applications in the snap runtime - doc - snapcraft.io](https://forum.snapcraft.io/t/the-tcltk-launch-launcher-fix-tcl-tk-applications-in-the-snap-runtime/11740) for more info on using this launcher.
 
 ## License
 
